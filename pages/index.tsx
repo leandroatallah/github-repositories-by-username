@@ -14,17 +14,37 @@ const Wrapper = styled.div`
   max-width: 840px;
   margin: 0 auto;
 `
+const ButtonGroup = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+`
+
 const Button = styled.button`
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
+  margin-right: 8px;
+  padding: 7.5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 3px;
-  color: #333;
-  background-color: #f5f5f5;
-  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.75);
+  background-color: transparent;
+  font-size: 0.9rem;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.1s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+`
+
+const PaginationContainer = styled.div`
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin: 20px 0;
+  padding: 20px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
 `
 
 const Home = (): JSX.Element => {
@@ -61,12 +81,30 @@ const Home = (): JSX.Element => {
         {showResult && listRepositories && (
           <Skeleton loading={loading}>
             <div>
-              {pageList && <span>Página: {pageList}</span>}
               <ListRepositories items={listRepositories} />
 
               {console.log(publicRepos)}
-              {publicRepos && publicRepos > 10 * pageList && (
-                <Button onClick={() => setPageList(pageList + 1)}>Carregar mais</Button>
+
+              {!errorMessage && publicRepos && (
+                <PaginationContainer>
+                  <>
+                    <ButtonGroup>
+                      <>
+                        {pageList > 1 && (
+                          <Button onClick={() => setPageList(pageList - 1)}>Anterior</Button>
+                        )}
+
+                        {publicRepos > 10 * pageList && (
+                          <Button onClick={() => setPageList(pageList + 1)}>Próximo</Button>
+                        )}
+                      </>
+                    </ButtonGroup>
+
+                    <span>
+                      Página: {pageList} de {publicRepos ? Math.ceil(publicRepos / 10) : "1"}
+                    </span>
+                  </>
+                </PaginationContainer>
               )}
             </div>
           </Skeleton>

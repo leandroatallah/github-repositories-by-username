@@ -72,10 +72,12 @@ const Form = () => {
     setErrorMessage,
     // @ts-ignore
     setPublicRepos,
+    // @ts-ignore
+    setPageList,
   } = formCtx
 
   useEffect(() => {
-    if (pageList > 1) {
+    if (pageList > 0) {
       const input = document.querySelector("input[name=username]") as HTMLInputElement
 
       fetchData(input.value, pageList)
@@ -108,6 +110,8 @@ const Form = () => {
   const handleSubmitForm = (e: FormEvent) => {
     e.preventDefault()
 
+    setPageList(1)
+
     const input = document.querySelector("input[name=username]") as HTMLInputElement
     if (input && input.value == "") {
       setShowAlertEmptyUsername(true)
@@ -116,12 +120,12 @@ const Form = () => {
       return
     }
 
-    fetchData(input.value, pageList)
+    fetchData(input.value, 1)
   }
 
   return (
     <div>
-      <FormComponent action="" method="post" onSubmit={handleSubmitForm}>
+      <FormComponent method="post" onSubmit={handleSubmitForm} autoComplete="off">
         <Input
           type="text"
           name="username"
@@ -130,6 +134,7 @@ const Form = () => {
             setShowAlertEmptyUsername(false)
           }}
           disabled={disabled}
+          autoComplete="off"
           data-testid="input-username"
         />
         <InputSubmit type="submit" disabled={disabled} data-testid="input-submit" />

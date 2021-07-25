@@ -5,37 +5,54 @@ import Image from "next/image"
 
 const ListItemContainer = styled.div`
   padding: 20px;
-  border-radius: 4px;
-  color: #333;
+  border-radius: 5px;
   margin-bottom: 20px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: all 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 `
 const ListItemContainerFooter = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0;
+  margin-top: 20px;
   font-size: 13px;
   font-weight: 400;
+`
+
+const FooterCounts = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 `
 
 const Title = styled.h2`
   font-size: 20px;
   font-weight: bold;
   margin: 0;
+  color: #aaf;
 `
 
-const CountICon = styled.span`
+const CountICon = styled.div`
   display: inline-flex;
   align-items: center;
   margin-left: 10px;
-  font-size: 18px;
+  font-size: 0.9rem;
 
-  span {
+  div {
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 15px;
+
+    .image-wrapper {
+      display: inline-block;
+      width: 20px;
+    }
   }
 `
 
@@ -61,40 +78,46 @@ const ListItem = (props: Props) => {
       <Title>{name}</Title>
 
       <ListItemContainerFooter>
-        <span>Última atualização: {moment(updated_at).calendar()}</span>
+        <span>Última atualização: {moment(updated_at).locale("pt-br").format("DD/MM/YYYY")}</span>
 
-        <div className="footer-counts">
+        <FooterCounts>
           <CountICon>
-            <Image
-              width="18"
-              height="18"
-              src="/static/images/star-regular.svg"
-              alt="Quantos marcaram com uma estrela"
-              title="Quantos marcaram com uma estrela"
-            />
+            <div className="image-wrapper">
+              <Image
+                width="16"
+                height="16"
+                src="/static/images/star-regular.svg"
+                alt="Quantos marcaram com uma estrela"
+                title="Quantos marcaram com uma estrela"
+              />
+            </div>
             <span>{stargazers_count}</span>
           </CountICon>
           <CountICon>
-            <Image
-              width="18"
-              height="18"
-              src="/static/images/eye-regular.svg"
-              alt="Quantos estão observando"
-              title="Quantos estão observando"
-            />
+            <div className="image-wrapper">
+              <Image
+                width="16"
+                height="16"
+                src="/static/images/eye-regular.svg"
+                alt="Quantos estão observando"
+                title="Quantos estão observando"
+              />
+            </div>
             <span>{watchers_count}</span>
           </CountICon>
           <CountICon>
-            <Image
-              width="18"
-              height="18"
-              src="/static/images/code-branch-solid.svg"
-              alt="Quantos forks foram feitos"
-              title="Quantos forks foram feitos"
-            />
+            <div className="image-wrapper">
+              <Image
+                width="16"
+                height="16"
+                src="/static/images/code-branch-solid.svg"
+                alt="Quantos forks foram feitos"
+                title="Quantos forks foram feitos"
+              />
+            </div>
             <span>{forks_count}</span>
           </CountICon>
-        </div>
+        </FooterCounts>
       </ListItemContainerFooter>
     </ListItemContainer>
   )
