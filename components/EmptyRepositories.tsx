@@ -2,6 +2,9 @@ import React from "react"
 import styled from "styled-components"
 
 const Title = styled.h1`
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin: 20px 0;
+  padding: 20px 0;
   font-size: 1.4em;
   font-weight: bold;
   margin-top: 40px;

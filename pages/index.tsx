@@ -13,6 +13,7 @@ const Container = styled.div``
 const Wrapper = styled.div`
   max-width: 840px;
   margin: 0 auto;
+  padding: 0 20px;
 `
 const ButtonGroup = styled.div`
   display: flex;

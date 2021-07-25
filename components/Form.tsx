@@ -89,7 +89,8 @@ const Form = () => {
     setShowResult(true)
     setDisabled(true)
 
-    await fetch(`/api/search/${username}?page=${page || 1}`)
+    console.log(process.env.VERCEL_URL)
+    await fetch(`${process.env.VERCEL_URL}/api/search/${username}?page=${page || 1}`)
       .then(async (res) => {
         if (res.status === 200) {
           const json = await res.json()
