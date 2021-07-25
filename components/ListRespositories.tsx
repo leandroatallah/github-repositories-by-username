@@ -1,14 +1,23 @@
 import styled from "styled-components"
 import ListItem from "components/ListItem"
+import { Repository } from "interfaces"
+import React from "react"
 
 const ListRespositoriesContainer = styled.div`
   margin-top: 40px;
+
+  .profile-info {
+    width: 100%;
+  }
 `
 
-const ListRespositories = ({ items }): JSX.Element => {
+interface Props {
+  items: Repository[] | null
+}
+
+const ListRespositories = ({ items }: Props): JSX.Element => {
   return (
     <ListRespositoriesContainer>
-      <div>card profile info</div>
       {items && items.length > 0 && items.map((item, index) => <ListItem {...item} key={index} />)}
     </ListRespositoriesContainer>
   )

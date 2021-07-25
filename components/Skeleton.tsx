@@ -1,10 +1,8 @@
+import React from "react"
 import styled, { keyframes } from "styled-components"
 
 const SkeletonContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 20px;
+  margin-top: 40px;
 `
 
 const pulse = keyframes`
@@ -17,6 +15,7 @@ const pulse = keyframes`
 `
 
 const SkeletonItem = styled.div`
+  margin-bottom: 20px;
   width: 100%;
   height: 120px;
   border-radius: 4px;
@@ -29,10 +28,10 @@ interface Props {
   children: JSX.Element
 }
 
-const Skeleton = ({ loading, error, children }: Props): JSX.Element => {
+const Skeleton = ({ loading, children }: Props): JSX.Element => {
   if (loading) {
     return (
-      <SkeletonContainer>
+      <SkeletonContainer data-testid="skeleton-container">
         <SkeletonItem />
         <SkeletonItem />
         <SkeletonItem />
@@ -43,10 +42,6 @@ const Skeleton = ({ loading, error, children }: Props): JSX.Element => {
         <SkeletonItem />
       </SkeletonContainer>
     )
-  }
-
-  if (error) {
-    return <div className="skeleton-error">erro</div>
   }
 
   return <div className="skeleton-disabled">{children}</div>

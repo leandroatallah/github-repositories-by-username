@@ -1,3 +1,4 @@
+import React from "react"
 import styled from "styled-components"
 import Image from "next/image"
 
@@ -21,8 +22,13 @@ const Header = styled.header`
 const HeaderBar = (): JSX.Element => {
   return (
     <Header>
-      <Image width="32" height="32" src="/static/images/patrick-star.svg" />
-      <h1>Patrick Star</h1>
+      <Image
+        width="32"
+        height="32"
+        src="/static/images/patrick-star.svg"
+        alt="Star Hunter | GitHub repository finder"
+      />
+      <h1>Star Hunter</h1>
     </Header>
   )
 }
