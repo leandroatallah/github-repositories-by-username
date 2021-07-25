@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 
 const SearchUsername = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
-  const { username } = req.query
+  const { username, page } = req.query
+  let public_repos = 0
 
   if (!username) {
     res.status(400).json({
@@ -9,7 +10,16 @@ const SearchUsername = async (req: NextApiRequest, res: NextApiResponse): Promis
     })
   }
 
-  await fetch(`https://api.github.com/users/${username}/repos`)
+  await fetch(`https://api.github.com/users/${username[0]}`).then(async (res) => {
+    const json = await res.json()
+    public_repos = json.public_repos
+  })
+
+  await fetch(
+    `https://api.github.com/users/${
+      username[0]
+    }/repos?sort=updated&direction=desc&per_page=10&page=${page || "1"}`
+  )
     .then(async (e) => {
       if (e.status === 404) {
         res.status(200).json({
@@ -25,6 +35,7 @@ const SearchUsername = async (req: NextApiRequest, res: NextApiResponse): Promis
           res.status(200).json({
             items: json,
             error: false,
+            public_repos,
           })
         } else {
           res.status(200).json({

@@ -1,6 +1,7 @@
 import React from "react"
 import type { AppProps } from "next/app"
 import { createGlobalStyle } from "styled-components"
+import FormContext from "context/FormContext"
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -25,7 +26,8 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
     line-height: 1;
-    background-color: #fff;
+    background-color: #2d2d2d;
+    color: #fff;
     font-family: 'Noto Sans', sans-serif;
   }
   ol,
@@ -51,10 +53,12 @@ const GlobalStyle = createGlobalStyle`
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <GlobalStyle />
-      <Component {...pageProps} />
-    </>
+    <FormContext>
+      <>
+        <GlobalStyle />
+        <Component {...pageProps} />
+      </>
+    </FormContext>
   )
 }
 export default MyApp

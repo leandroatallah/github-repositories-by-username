@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/aria-query": "^4.2.2",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "eslint-plugin-react": "^7.24.0",

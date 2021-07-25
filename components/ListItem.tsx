@@ -1,7 +1,7 @@
+import React from "react"
 import styled from "styled-components"
 import moment from "moment"
 import Image from "next/image"
-import React from "react"
 
 const ListItemContainer = styled.div`
   padding: 20px;
@@ -53,6 +53,7 @@ const ListItem = (props: Props) => {
 
   return (
     <ListItemContainer
+      className="list-item"
       onClick={() => {
         window.open(html_url, "_blank")
       }}

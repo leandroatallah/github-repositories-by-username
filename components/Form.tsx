@@ -1,6 +1,6 @@
-import React from "react"
-import { FormEvent, useState } from "react"
+import React, { FormEvent, useState, useEffect, useContext } from "react"
 import styled from "styled-components"
+import { FormContext } from "../context/FormContext"
 
 const FormComponent = styled.form`
   position: relative;
@@ -9,23 +9,23 @@ const FormComponent = styled.form`
 const Input = styled.input`
   box-sizing: border-box;
   height: 75px;
-  border: 3px solid transparent;
+  border: 1px solid transparent;
   border-radius: 4px;
   width: 100%;
   padding: 0 20px;
   font-size: 1.25rem;
-  color: #333;
-  background-color: #f5f5f5;
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
   transition: all 0.2s;
   &:focus,
   &:hover {
     outline: 0;
     box-shadow: none;
-    border-color: #eee;
-    background-color: #f0f0f0;
+    border-color: rgba(255, 255, 255, 0.1);
   }
   ::placeholder {
-    color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    opacity: 0.75;
   }
 `
 
@@ -54,28 +54,46 @@ const AlertEmptyUsername = styled.div`
   color: #a00;
 `
 
-interface Props {
-  setListRespositories: (respositories: any[]) => void
-  setLoading: (loading: boolean) => void
-  setShowResult: (show: boolean) => void
-  setErrorMessage: (error: string | null) => void
-}
-
-const Form = ({ setListRespositories, setLoading, setShowResult, setErrorMessage }: Props) => {
+const Form = () => {
   const [disabled, setDisabled] = useState(false)
   const [showAlertEmptyUsername, setShowAlertEmptyUsername] = useState(false)
+  const formCtx = useContext(FormContext)
 
-  const fetchData = async (username: string) => {
+  const {
+    // @ts-ignore
+    pageList,
+    // @ts-ignore
+    setLoading,
+    // @ts-ignore
+    setShowResult,
+    // @ts-ignore
+    setListRepositories,
+    // @ts-ignore
+    setErrorMessage,
+    // @ts-ignore
+    setPublicRepos,
+  } = formCtx
+
+  useEffect(() => {
+    if (pageList > 1) {
+      const input = document.querySelector("input[name=username]") as HTMLInputElement
+
+      fetchData(input.value, pageList)
+    }
+  }, [pageList])
+
+  const fetchData = async (username: string, page: number) => {
     setLoading(true)
     setShowResult(true)
     setDisabled(true)
 
-    await fetch(`/api/search/${username}`)
+    await fetch(`/api/search/${username}?page=${page || 1}`)
       .then(async (res) => {
         if (res.status === 200) {
           const json = await res.json()
 
-          setListRespositories(json.items)
+          setPublicRepos(json.public_repos)
+          setListRepositories(json.items)
           setErrorMessage(json.error)
         }
       })
@@ -83,10 +101,8 @@ const Form = ({ setListRespositories, setLoading, setShowResult, setErrorMessage
         setErrorMessage("unknow")
       })
 
-    setTimeout(() => {
-      setLoading(false)
-      setDisabled(false)
-    }, 500)
+    setLoading(false)
+    setDisabled(false)
   }
 
   const handleSubmitForm = (e: FormEvent) => {
@@ -100,7 +116,7 @@ const Form = ({ setListRespositories, setLoading, setShowResult, setErrorMessage
       return
     }
 
-    fetchData(input.value)
+    fetchData(input.value, pageList)
   }
 
   return (
@@ -116,7 +132,7 @@ const Form = ({ setListRespositories, setLoading, setShowResult, setErrorMessage
           disabled={disabled}
           data-testid="input-username"
         />
-        <InputSubmit type="submit" disabled={disabled} />
+        <InputSubmit type="submit" disabled={disabled} data-testid="input-submit" />
       </FormComponent>
 
       {showAlertEmptyUsername && (

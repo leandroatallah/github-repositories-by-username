@@ -3,18 +3,26 @@ import styled from "styled-components"
 import Image from "next/image"
 
 const Header = styled.header`
-  background-color: #fff;
-  height: 60px;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: #232323;
+  padding: 10px 20px 15px;
   margin-bottom: 40px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 5px;
+  }
 
   h1 {
-    font-size: 1.5em;
-    color: #333;
+    font-size: 2rem;
+    margin: 0 7px;
+  }
+  h2 {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    font-weight: 400;
     margin: 0;
   }
 `
@@ -22,13 +30,16 @@ const Header = styled.header`
 const HeaderBar = (): JSX.Element => {
   return (
     <Header>
-      <Image
-        width="32"
-        height="32"
-        src="/static/images/patrick-star.svg"
-        alt="Star Hunter | GitHub repository finder"
-      />
-      <h1>Star Hunter</h1>
+      <div>
+        <Image
+          width="28"
+          height="28"
+          src="/static/images/patrick-star.svg"
+          alt="Star Hunter | Busque repositorios pelo nome de usuário"
+        />
+        <h1>Star Hunter</h1>
+      </div>
+      <h2>Busque repositorios pelo nome de usuário</h2>
     </Header>
   )
 }

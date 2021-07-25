@@ -7,10 +7,10 @@ const SkeletonContainer = styled.div`
 
 const pulse = keyframes`
   0%, 100% {
-    background-color: #f0f0f0;
+    background-color: rgba(255, 255, 255, 0.03);
   }
   50% {
-    background-color: #fcfcfc;
+    background-color: rgba(255, 255, 255, 0.07);
   }
 `
 
@@ -37,14 +37,15 @@ const Skeleton = ({ loading, children }: Props): JSX.Element => {
         <SkeletonItem />
         <SkeletonItem />
         <SkeletonItem />
-        <SkeletonItem />
-        <SkeletonItem />
-        <SkeletonItem />
       </SkeletonContainer>
     )
   }
 
-  return <div className="skeleton-disabled">{children}</div>
+  return (
+    <div className="skeleton-disabled" data-testid="skeleton-disabled">
+      {children}
+    </div>
+  )
 }
 
 export default Skeleton

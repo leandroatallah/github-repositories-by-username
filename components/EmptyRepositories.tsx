@@ -22,6 +22,9 @@ const EmptyRepositories = ({ message }: Props): JSX.Element => {
     case "not_found":
       messageText = "Ops! Este usuário não existe."
       break
+    case "no_more":
+      messageText = "Não há mais repositórios"
+      break
     default:
       messageText = "Houve algum erro com sua pesquisa."
       break
