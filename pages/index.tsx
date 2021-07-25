@@ -1,10 +1,12 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import Head from "next/head"
 import Skeleton from "components/Skeleton"
 import HeaderBar from "components/HeaderBar"
 import Form from "components/Form"
 import ListRespositories from "components/ListRespositories"
+import EmptyRepositories from "components/EmptyRepositories"
 import styled from "styled-components"
+import { Repository } from "interfaces"
 
 const Container = styled.div``
 
@@ -15,9 +17,9 @@ const Wrapper = styled.div`
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
   const [showResult, setShowResult] = useState(false)
-  const [listRespositories, setListRespositories] = useState(null)
+  const [listRespositories, setListRespositories] = useState<Repository[] | null>([])
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   return (
     <Container>
@@ -31,15 +33,17 @@ export default function Home() {
         <Form
           setListRespositories={setListRespositories}
           setLoading={setLoading}
-          setError={setError}
           setShowResult={setShowResult}
+          setErrorMessage={setErrorMessage}
         />
 
-        {showResult && (
-          <Skeleton loading={loading} error={error}>
-            {!loading && listRespositories && <ListRespositories items={listRespositories} />}
+        {showResult && listRespositories && (
+          <Skeleton loading={loading}>
+            <ListRespositories items={listRespositories} />
           </Skeleton>
         )}
+
+        {errorMessage && <EmptyRepositories message={errorMessage} />}
       </Wrapper>
     </Container>
   )
