@@ -6,6 +6,17 @@ const FormComponent = styled.form`
   position: relative;
 `
 
+const Title = styled.h1`
+  font-size: 1.5em;
+  line-height: 1.2;
+  font-weight: 400;
+  padding: 0 10px 20px;
+`
+
+const InputControl = styled.div`
+  position: relative;
+`
+
 const Input = styled.input`
   box-sizing: border-box;
   height: 75px;
@@ -25,7 +36,7 @@ const Input = styled.input`
   }
   ::placeholder {
     color: #fff;
-    opacity: 0.75;
+    opacity: 0.4;
   }
 `
 
@@ -126,18 +137,21 @@ const Form = () => {
   return (
     <div>
       <FormComponent method="post" onSubmit={handleSubmitForm} autoComplete="off">
-        <Input
-          type="text"
-          name="username"
-          placeholder="Digite o nome do usuário do Github"
-          onKeyDown={() => {
-            setShowAlertEmptyUsername(false)
-          }}
-          disabled={disabled}
-          autoComplete="off"
-          data-testid="input-username"
-        />
-        <InputSubmit type="submit" disabled={disabled} data-testid="input-submit" />
+        <Title>Digite o nome de usuário para pesquisar</Title>
+        <InputControl>
+          <Input
+            type="text"
+            name="username"
+            placeholder="Ex: leandroatallah"
+            onKeyDown={() => {
+              setShowAlertEmptyUsername(false)
+            }}
+            disabled={disabled}
+            autoComplete="off"
+            data-testid="input-username"
+          />
+          <InputSubmit type="submit" disabled={disabled} data-testid="input-submit" />
+        </InputControl>
       </FormComponent>
 
       {showAlertEmptyUsername && (
