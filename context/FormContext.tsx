@@ -8,7 +8,7 @@ interface Props {
 export const FormContext = createContext<FormContextInterface | null>(null)
 
 const App = ({ children }: Props) => {
-  const [pageList, setPageList] = useState<number>(1)
+  const [pageList, setPageList] = useState<number>(0)
   const [loading, setLoading] = useState(true)
   const [showResult, setShowResult] = useState(false)
   const [listRepositories, setListRepositories] = useState<Repository[] | null>([])

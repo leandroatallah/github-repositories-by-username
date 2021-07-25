@@ -84,8 +84,6 @@ const Home = (): JSX.Element => {
             <div>
               <ListRepositories items={listRepositories} />
 
-              {console.log(publicRepos)}
-
               {!errorMessage && publicRepos && (
                 <PaginationContainer>
                   <>

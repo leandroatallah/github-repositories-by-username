@@ -77,9 +77,9 @@ const Form = () => {
   } = formCtx
 
   useEffect(() => {
-    if (pageList > 0) {
-      const input = document.querySelector("input[name=username]") as HTMLInputElement
+    const input = document.querySelector("input[name=username]") as HTMLInputElement
 
+    if (input.value && pageList > 0) {
       fetchData(input.value, pageList)
     }
   }, [pageList])
@@ -89,7 +89,7 @@ const Form = () => {
     setShowResult(true)
     setDisabled(true)
 
-    await fetch(`${process.env.VERCEL_URL}/api/search/${username}?page=${page || 1}`)
+    await fetch(`/api/search/${username}?page=${page || 1}`)
       .then(async (res) => {
         if (res.status === 200) {
           const json = await res.json()
