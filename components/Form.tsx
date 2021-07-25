@@ -51,7 +51,7 @@ const AlertEmptyUsername = styled.div`
   display: inline-block;
   margin: 10px;
   font-size: 0.75rem;
-  color: #a00;
+  color: #f88;
 `
 
 const Form = () => {
