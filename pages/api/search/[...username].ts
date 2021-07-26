@@ -18,7 +18,7 @@ const SearchUsername = async (req: NextApiRequest, res: NextApiResponse): Promis
   await fetch(
     `https://api.github.com/users/${
       username[0]
-    }/repos?sort=updated&direction=desc&per_page=10&page=${page && page !== "1" ? 0 : 1}`
+    }/repos?sort=updated&direction=desc&per_page=10&page=${page || 1}`
   )
     .then(async (e) => {
       if (e.status === 404) {
