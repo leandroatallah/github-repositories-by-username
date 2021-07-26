@@ -24,12 +24,21 @@ const ListItemContainerFooter = styled.div`
   margin-top: 20px;
   font-size: 13px;
   font-weight: 400;
+
+  @media (max-width: 748px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `
 
 const FooterCounts = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+
+  @media (max-width: 748px) {
+    margin-top: 12px;
+  }
 `
 
 const Title = styled.h2`
@@ -37,6 +46,10 @@ const Title = styled.h2`
   font-weight: bold;
   margin: 0;
   color: #aaf;
+
+  @media (max-width: 748px) {
+    margin-bottom: 24px;
+  }
 `
 
 const CountICon = styled.div`
@@ -45,14 +58,16 @@ const CountICon = styled.div`
   margin-left: 10px;
   font-size: 0.9rem;
 
+  @media (max-width: 748px) {
+    margin-left: 0;
+  }
+
   div {
     display: inline-block;
-    margin-left: 15px;
+  }
 
-    .image-wrapper {
-      display: inline-block;
-      width: 20px;
-    }
+  span {
+    margin: 0 15px 0 7px;
   }
 `
 
