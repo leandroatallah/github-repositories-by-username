@@ -70,10 +70,6 @@ const Home = (): JSX.Element => {
 
   return (
     <Container>
-      <Head>
-        <title>Github RepoStars | Busque repositorios pelo nome de usuário</title>
-      </Head>
-
       <HeaderBar />
 
       <Wrapper>
